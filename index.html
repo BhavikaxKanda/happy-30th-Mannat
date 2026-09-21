@@ -3,141 +3,387 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy 30th Birthday!</title>
+  <title>Happy 30th Birthday, Mannat!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
+
     body {
-      background: #fbf8f5;
+      min-height: 100vh;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .card-container {
-      perspective: 1000px;
-      cursor: pointer;
+      background: radial-gradient(circle at 50% 40%, #173d7a 0%, #0d254c 55%, #040c1a 100%);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      perspective: 1600px;
       -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
-    .card {
-      width: 320px;
-      height: 460px;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-      border-radius: 18px;
-    }
-    .card.flipped {
-      transform: rotateY(180deg);
-    }
-    .face {
+
+    #balloon-canvas {
       position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      backface-visibility: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* CARD STAGE & CONTAINER */
+    .card-stage {
+      position: relative;
+      z-index: 10;
+      padding: 20px;
+    }
+
+    /* THE FOLDED BOOK CARD */
+    .book-card {
+      width: 320px;
+      height: 480px;
+      position: relative;
+      transform-style: preserve-3d;
+      perspective: 1400px;
+      cursor: pointer;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* BASE / INSIDE SPREAD */
+    .inside-base {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fffdf8;
       border-radius: 18px;
-      padding: 32px 24px;
+      padding: 34px 26px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      border: 1px solid #eee;
-    }
-    .front {
-      background: #ffffff;
-      color: #2c3e50;
       text-align: center;
+      box-shadow: 0 25px 60px rgba(0, 10, 30, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.35);
+      z-index: 2;
+      border: 2px solid #e8d8b5;
     }
-    .front .badge {
-      font-size: 56px;
-      margin-top: 10px;
-    }
-    .front h1 {
-      font-size: 24px;
+
+    .inside-tag {
+      align-self: center;
+      padding: 5px 14px;
+      font-size: 11px;
       font-weight: 700;
-      margin-top: 15px;
-      color: #2c3e50;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #9a7218;
+      background: #fdf6e7;
+      border: 1px solid #d4af37;
+      border-radius: 20px;
     }
-    .front p {
-      font-size: 17px;
-      color: #7f8c8d;
-      font-style: italic;
-      margin-top: 15px;
-    }
-    .tap-hint {
-      font-size: 13px;
-      color: #e27d60;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      animation: pulse 1.5s infinite;
-    }
-    .back {
-      background: #fffafa;
-      color: #2c3e50;
-      transform: rotateY(180deg);
-      text-align: center;
-      border: 2px solid #ffccd5;
-    }
-    .back .punchline {
-      font-size: 22px;
+
+    .punchline {
+      font-family: 'Cinzel', serif;
+      font-size: 21px;
       font-weight: 800;
-      color: #c94a64;
-      line-height: 1.3;
-      margin-top: 10px;
+      color: #8b1d2c;
+      line-height: 1.35;
+      letter-spacing: 0.5px;
+      margin-top: 8px;
     }
-    .back .message {
+
+    .message {
       font-size: 15px;
       line-height: 1.6;
-      color: #444;
-      margin: 15px 0;
+      color: #3f3931;
+      margin: 12px 0;
     }
-    .back .note {
-      font-size: 13px;
+
+    .message strong {
+      color: #1a1714;
       font-weight: 600;
-      color: #c94a64;
-      background: #ffeef0;
-      padding: 12px;
-      border-radius: 12px;
+    }
+
+    .delivery-box {
+      background: #fff9ee;
+      border: 1.5px solid #d4af37;
+      border-radius: 14px;
+      padding: 14px 16px;
+      text-align: left;
+    }
+
+    .delivery-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #9a7218;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .delivery-text {
+      font-size: 13px;
+      line-height: 1.45;
+      color: #4a4031;
+    }
+
+    .close-hint {
+      font-size: 12px;
+      font-weight: 600;
+      color: #8a7a62;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    /* FRONT COVER (HINGES ALONG THE LEFT SPINE) */
+    .front-cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(150deg, #fffefb 0%, #f7f1e5 100%);
+      border-radius: 18px;
+      padding: 36px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      border: 2px solid #d4af37;
+      box-shadow: 0 20px 50px rgba(0, 15, 40, 0.5), inset 0 0 30px rgba(212, 175, 55, 0.12);
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 5;
+      backface-visibility: hidden;
+    }
+
+    .front-tag {
+      align-self: center;
+      padding: 5px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #9a7218;
+      background: #fdf6e7;
+      border: 1px solid #d4af37;
+      border-radius: 20px;
+    }
+
+    .toast-icon {
+      font-size: 46px;
+      margin: 16px 0 10px;
+      line-height: 1;
+    }
+
+    .front-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 27px;
+      font-weight: 700;
+      color: #211c16;
+      line-height: 1.25;
+    }
+
+    .front-quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 17px;
+      color: #6b5f4d;
+      margin-top: 14px;
       line-height: 1.4;
     }
+
+    .open-hint {
+      font-size: 12px;
+      font-weight: 700;
+      color: #9a7218;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      animation: pulse 1.6s infinite;
+    }
+
+    /* THE OPENED STATE: SWINGS THE COVER 180 DEG TO THE LEFT */
+    .book-card.is-open .front-cover {
+      transform: rotateY(-180deg);
+    }
+
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(0.97); }
+      50% { opacity: 0.5; transform: scale(0.97); }
     }
   </style>
 </head>
 <body>
 
-  <div class="card-container" onclick="this.querySelector('.card').classList.toggle('flipped')">
-    <div class="card">
-      <!-- Front of the Card -->
-      <div class="face front">
-        <div class="badge">👵</div>
+  <!-- Floating Multi-Colored Balloons Canvas -->
+  <canvas id="balloon-canvas"></canvas>
+
+  <div class="card-stage">
+    <div class="book-card" onclick="toggleBook(this)">
+      
+      <!-- INSIDE PAGE (Revealed on Open) -->
+      <div class="inside-base">
+        <div class="inside-tag">THE ONE WHERE MANNAT TURNS 30</div>
         <div>
-          <h1>Happy birthday, Grandma!</h1>
-          <p>"It's better to be over the hill..."</p>
+          <div class="punchline">"...THAN BURIED UNDER IT!"</div>
+          <div class="message">
+            Welcome to the 30 club, Mannat! 🎉<br/>
+            <strong>(Chandler was right, Rachel had it coming.)</strong>
+          </div>
         </div>
-        <div class="tap-hint">👉 TAP TO FLIP</div>
+        <div class="delivery-box">
+          <div class="delivery-title">🎂 Birthday Delivery Alert</div>
+          <div class="delivery-text">
+            A celebration cake from Dulce De Leche is waiting downstairs with the 24/7 front desk concierge at 70 Greene!
+          </div>
+        </div>
+        <div class="close-hint">TAP TO CLOSE ↺</div>
       </div>
 
-      <!-- Inside / Back of the Card -->
-      <div class="face back">
-        <div class="punchline">"...than buried under it!"</div>
-        <div class="message">
-          Welcome to the 30 club, Mannat! 🎉<br/>
-          (Chandler was right, Rachel had it coming.)
+      <!-- FRONT COVER (Folds Open) -->
+      <div class="front-cover">
+        <div class="front-tag">CHAPTER 30.0</div>
+        <div>
+          <div class="toast-icon">🥂</div>
+          <h1 class="front-title">Happy Birthday,<br/>Mannat!</h1>
+          <p class="front-quote">"It's better to be over the hill..."</p>
         </div>
-        <div class="note">
-          🎂 There is a special delivery waiting for you with the 24/7 concierge at 70 Greene!
-        </div>
+        <div class="open-hint">👉 TAP TO OPEN</div>
       </div>
+
     </div>
   </div>
 
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    // 1. FLOATING MULTI-COLOR BALLOONS ANIMATION
+    const canvas = document.getElementById('balloon-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const balloonColors = [
+      { body: '#e63946', light: '#ff6b6b' }, // Ruby Red
+      { body: '#ffb703', light: '#ffe169' }, // Golden Yellow
+      { body: '#2a9d8f', light: '#52b788' }, // Emerald / Teal
+      { body: '#0077b6', light: '#48cae4' }, // Cerulean Blue
+      { body: '#7209b7', light: '#b5179e' }, // Royal Violet
+      { body: '#f77f00', light: '#fcbf49' }  // Coral Orange
+    ];
+
+    class Balloon {
+      constructor(startAnywhere = false) {
+        this.reset(startAnywhere);
+      }
+      reset(startAnywhere = false) {
+        this.x = Math.random() * canvas.width;
+        this.y = startAnywhere ? Math.random() * canvas.height : canvas.height + 100 + Math.random() * 80;
+        this.rx = 18 + Math.random() * 8; // width
+        this.ry = this.rx * 1.25;         // height
+        this.speed = 0.8 + Math.random() * 1.2;
+        this.swaySpeed = 0.015 + Math.random() * 0.02;
+        this.swayDistance = 25 + Math.random() * 20;
+        this.swayAngle = Math.random() * Math.PI * 2;
+        this.color = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+        this.alpha = 0.82 + Math.random() * 0.15;
+      }
+      update() {
+        this.y -= this.speed;
+        this.swayAngle += this.swaySpeed;
+        this.currentX = this.x + Math.sin(this.swayAngle) * this.swayDistance;
+        if (this.y < -120) {
+          this.reset(false);
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+
+        // Balloon Body
+        ctx.beginPath();
+        ctx.ellipse(this.currentX, this.y, this.rx, this.ry, 0, 0, Math.PI * 2);
+        const grad = ctx.createRadialGradient(
+          this.currentX - this.rx * 0.3, this.y - this.ry * 0.35, 2,
+          this.currentX, this.y, this.ry
+        );
+        grad.addColorStop(0, this.color.light);
+        grad.addColorStop(1, this.color.body);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // Specular Highlight
+        ctx.beginPath();
+        ctx.ellipse(this.currentX - this.rx * 0.35, this.y - this.ry * 0.4, this.rx * 0.22, this.ry * 0.3, -Math.PI / 6, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+        ctx.fill();
+
+        // Knot
+        ctx.beginPath();
+        ctx.moveTo(this.currentX - 3, this.y + this.ry);
+        ctx.lineTo(this.currentX + 3, this.y + this.ry);
+        ctx.lineTo(this.currentX, this.y + this.ry + 5);
+        ctx.fillStyle = this.color.body;
+        ctx.fill();
+
+        // Wavy String
+        ctx.beginPath();
+        ctx.moveTo(this.currentX, this.y + this.ry + 5);
+        ctx.quadraticCurveTo(
+          this.currentX - 6, this.y + this.ry + 25,
+          this.currentX + 2, this.y + this.ry + 45
+        );
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+
+        ctx.restore();
+      }
+    }
+
+    const balloons = [];
+    for (let i = 0; i < 20; i++) {
+      balloons.push(new Balloon(true));
+    }
+
+    function renderBalloons() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      balloons.forEach(b => {
+        b.update();
+        b.draw();
+      });
+      requestAnimationFrame(renderBalloons);
+    }
+    renderBalloons();
+
+    // 2. BOOK-FLIP INTERACTION & CONFETTI
+    function toggleBook(card) {
+      const willOpen = !card.classList.contains('is-open');
+      card.classList.toggle('is-open');
+
+      if (willOpen) {
+        setTimeout(() => {
+          confetti({
+            particleCount: 140,
+            spread: 90,
+            origin: { y: 0.6 },
+            colors: ['#e63946', '#ffb703', '#2a9d8f', '#0077b6', '#7209b7', '#f77f00', '#ffffff']
+          });
+        }, 300);
+      }
+    }
+  </script>
 </body>
 </html>
