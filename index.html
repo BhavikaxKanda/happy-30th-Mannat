@@ -20,7 +20,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* Deep royal midnight blue background */
       background: radial-gradient(circle at 50% 40%, #173d7a 0%, #0d254c 55%, #040c1a 100%);
       font-family: 'Plus Jakarta Sans', sans-serif;
       perspective: 1600px;
@@ -39,17 +38,21 @@
       pointer-events: none;
     }
 
-    /* CARD WRAPPER */
+    /* CARD STAGE */
     .card-stage {
       position: relative;
       z-index: 10;
-      padding: 20px;
+      padding: 16px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
 
-    /* BOOK-STYLE FOLDING CARD */
+    /* WIDER BOOK CARD */
     .book-card {
-      width: 320px;
-      height: 480px;
+      width: 380px;
+      max-width: 90vw;
+      height: 500px;
       position: relative;
       transform-style: preserve-3d;
       perspective: 1400px;
@@ -57,7 +60,7 @@
       transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    /* INSIDE SPREAD (Revealed underneath) */
+    /* INSIDE SPREAD */
     .inside-base {
       position: absolute;
       top: 0;
@@ -65,8 +68,8 @@
       width: 100%;
       height: 100%;
       background: #fffdf8;
-      border-radius: 18px;
-      padding: 34px 26px;
+      border-radius: 20px;
+      padding: 34px 28px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -78,32 +81,31 @@
 
     .inside-tag {
       align-self: center;
-      padding: 5px 14px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      padding: 6px 18px;
+      font-size: 13px;
+      font-weight: 600;
       color: #9a7218;
       background: #fdf6e7;
       border: 1px solid #d4af37;
       border-radius: 20px;
+      letter-spacing: 0.3px;
     }
 
     .punchline {
       font-family: 'Cinzel', serif;
-      font-size: 21px;
+      font-size: 23px;
       font-weight: 800;
       color: #8b1d2c;
       line-height: 1.35;
       letter-spacing: 0.5px;
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     .message {
-      font-size: 15px;
+      font-size: 16px;
       line-height: 1.6;
       color: #3f3931;
-      margin: 12px 0;
+      margin: 14px 0;
     }
 
     .message strong {
@@ -115,22 +117,21 @@
       background: #fff9ee;
       border: 1.5px solid #d4af37;
       border-radius: 14px;
-      padding: 14px 16px;
+      padding: 16px 18px;
       text-align: left;
     }
 
     .delivery-title {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       color: #9a7218;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
     }
 
     .delivery-text {
-      font-size: 13px;
-      line-height: 1.45;
+      font-size: 13.5px;
+      line-height: 1.5;
       color: #4a4031;
     }
 
@@ -142,7 +143,7 @@
       margin-top: 4px;
     }
 
-    /* FRONT COVER (Hinges open along left spine) */
+    /* FRONT COVER */
     .front-cover {
       position: absolute;
       top: 0;
@@ -150,8 +151,8 @@
       width: 100%;
       height: 100%;
       background: linear-gradient(150deg, #fffefb 0%, #f7f1e5 100%);
-      border-radius: 18px;
-      padding: 36px 26px;
+      border-radius: 20px;
+      padding: 38px 28px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -167,10 +168,10 @@
 
     .front-tag {
       align-self: center;
-      padding: 5px 14px;
-      font-size: 11px;
+      padding: 6px 16px;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: #9a7218;
       background: #fdf6e7;
@@ -179,14 +180,14 @@
     }
 
     .toast-icon {
-      font-size: 46px;
+      font-size: 50px;
       margin: 16px 0 10px;
       line-height: 1;
     }
 
     .front-title {
       font-family: 'Playfair Display', serif;
-      font-size: 27px;
+      font-size: 29px;
       font-weight: 700;
       color: #211c16;
       line-height: 1.25;
@@ -195,7 +196,7 @@
     .front-quote {
       font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: 17px;
+      font-size: 18px;
       color: #6b5f4d;
       margin-top: 14px;
       line-height: 1.4;
@@ -210,7 +211,7 @@
       animation: pulse 1.6s infinite;
     }
 
-    /* BOOK OPEN ANIMATION (Flips open 180 degrees like a book cover) */
+    /* BOOK-OPEN ACTION */
     .book-card.is-open .front-cover {
       transform: rotateY(-180deg);
     }
@@ -231,7 +232,7 @@
       
       <!-- INSIDE SPREAD -->
       <div class="inside-base">
-        <div class="inside-tag">THE ONE WHERE MANNAT TURNS 30</div>
+        <div class="inside-tag">The One Where Mannat Turns 30</div>
         <div>
           <div class="punchline">"...THAN BURIED UNDER IT!"</div>
           <div class="message">
@@ -240,7 +241,7 @@
           </div>
         </div>
         <div class="delivery-box">
-          <div class="delivery-title">🎂 Birthday Delivery Alert</div>
+          <div class="delivery-title">🎂 Birthday Delivery</div>
           <div class="delivery-text">
             A celebration cake from Dulce De Leche is waiting downstairs with the 24/7 concierge at 70 Greene!
           </div>
@@ -266,7 +267,7 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <script>
-    // 1. FLOATING MULTI-COLOR BALLOONS ANIMATION
+    // 1. FLOATING BALLOONS CANVAS ANIMATION
     const canvas = document.getElementById('balloon-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -293,7 +294,7 @@
       reset(startAnywhere = false) {
         this.x = Math.random() * canvas.width;
         this.y = startAnywhere ? Math.random() * canvas.height : canvas.height + 100 + Math.random() * 80;
-        this.rx = 18 + Math.random() * 8;
+        this.rx = 19 + Math.random() * 8;
         this.ry = this.rx * 1.25;
         this.speed = 0.8 + Math.random() * 1.2;
         this.swaySpeed = 0.015 + Math.random() * 0.02;
@@ -326,13 +327,13 @@
         ctx.fillStyle = grad;
         ctx.fill();
 
-        // Specular Light Glare
+        // Highlight
         ctx.beginPath();
         ctx.ellipse(this.currentX - this.rx * 0.35, this.y - this.ry * 0.4, this.rx * 0.22, this.ry * 0.3, -Math.PI / 6, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
         ctx.fill();
 
-        // Tie Knot
+        // Knot
         ctx.beginPath();
         ctx.moveTo(this.currentX - 3, this.y + this.ry);
         ctx.lineTo(this.currentX + 3, this.y + this.ry);
@@ -340,7 +341,7 @@
         ctx.fillStyle = this.color.body;
         ctx.fill();
 
-        // String
+        // Wavy String
         ctx.beginPath();
         ctx.moveTo(this.currentX, this.y + this.ry + 5);
         ctx.quadraticCurveTo(
@@ -356,7 +357,7 @@
     }
 
     const balloons = [];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 22; i++) {
       balloons.push(new Balloon(true));
     }
 
