@@ -6,7 +6,7 @@
   <title>Happy 30th Birthday, Mannat!</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -20,6 +20,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      /* Deep royal midnight blue background */
       background: radial-gradient(circle at 50% 40%, #173d7a 0%, #0d254c 55%, #040c1a 100%);
       font-family: 'Plus Jakarta Sans', sans-serif;
       perspective: 1600px;
@@ -27,6 +28,7 @@
       user-select: none;
     }
 
+    /* CONTINUOUS FLOATING BALLOONS CANVAS */
     #balloon-canvas {
       position: absolute;
       top: 0;
@@ -37,14 +39,14 @@
       pointer-events: none;
     }
 
-    /* CARD STAGE & CONTAINER */
+    /* CARD WRAPPER */
     .card-stage {
       position: relative;
       z-index: 10;
       padding: 20px;
     }
 
-    /* THE FOLDED BOOK CARD */
+    /* BOOK-STYLE FOLDING CARD */
     .book-card {
       width: 320px;
       height: 480px;
@@ -55,7 +57,7 @@
       transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    /* BASE / INSIDE SPREAD */
+    /* INSIDE SPREAD (Revealed underneath) */
     .inside-base {
       position: absolute;
       top: 0;
@@ -140,7 +142,7 @@
       margin-top: 4px;
     }
 
-    /* FRONT COVER (HINGES ALONG THE LEFT SPINE) */
+    /* FRONT COVER (Hinges open along left spine) */
     .front-cover {
       position: absolute;
       top: 0;
@@ -208,7 +210,7 @@
       animation: pulse 1.6s infinite;
     }
 
-    /* THE OPENED STATE: SWINGS THE COVER 180 DEG TO THE LEFT */
+    /* BOOK OPEN ANIMATION (Flips open 180 degrees like a book cover) */
     .book-card.is-open .front-cover {
       transform: rotateY(-180deg);
     }
@@ -221,13 +223,13 @@
 </head>
 <body>
 
-  <!-- Floating Multi-Colored Balloons Canvas -->
+  <!-- Floating Balloons Background Canvas -->
   <canvas id="balloon-canvas"></canvas>
 
   <div class="card-stage">
     <div class="book-card" onclick="toggleBook(this)">
       
-      <!-- INSIDE PAGE (Revealed on Open) -->
+      <!-- INSIDE SPREAD -->
       <div class="inside-base">
         <div class="inside-tag">THE ONE WHERE MANNAT TURNS 30</div>
         <div>
@@ -240,13 +242,13 @@
         <div class="delivery-box">
           <div class="delivery-title">🎂 Birthday Delivery Alert</div>
           <div class="delivery-text">
-            A celebration cake from Dulce De Leche is waiting downstairs with the 24/7 front desk concierge at 70 Greene!
+            A celebration cake from Dulce De Leche is waiting downstairs with the 24/7 concierge at 70 Greene!
           </div>
         </div>
         <div class="close-hint">TAP TO CLOSE ↺</div>
       </div>
 
-      <!-- FRONT COVER (Folds Open) -->
+      <!-- FRONT COVER -->
       <div class="front-cover">
         <div class="front-tag">CHAPTER 30.0</div>
         <div>
@@ -278,7 +280,7 @@
     const balloonColors = [
       { body: '#e63946', light: '#ff6b6b' }, // Ruby Red
       { body: '#ffb703', light: '#ffe169' }, // Golden Yellow
-      { body: '#2a9d8f', light: '#52b788' }, // Emerald / Teal
+      { body: '#2a9d8f', light: '#52b788' }, // Emerald Teal
       { body: '#0077b6', light: '#48cae4' }, // Cerulean Blue
       { body: '#7209b7', light: '#b5179e' }, // Royal Violet
       { body: '#f77f00', light: '#fcbf49' }  // Coral Orange
@@ -291,14 +293,14 @@
       reset(startAnywhere = false) {
         this.x = Math.random() * canvas.width;
         this.y = startAnywhere ? Math.random() * canvas.height : canvas.height + 100 + Math.random() * 80;
-        this.rx = 18 + Math.random() * 8; // width
-        this.ry = this.rx * 1.25;         // height
+        this.rx = 18 + Math.random() * 8;
+        this.ry = this.rx * 1.25;
         this.speed = 0.8 + Math.random() * 1.2;
         this.swaySpeed = 0.015 + Math.random() * 0.02;
         this.swayDistance = 25 + Math.random() * 20;
         this.swayAngle = Math.random() * Math.PI * 2;
         this.color = balloonColors[Math.floor(Math.random() * balloonColors.length)];
-        this.alpha = 0.82 + Math.random() * 0.15;
+        this.alpha = 0.85 + Math.random() * 0.12;
       }
       update() {
         this.y -= this.speed;
@@ -324,13 +326,13 @@
         ctx.fillStyle = grad;
         ctx.fill();
 
-        // Specular Highlight
+        // Specular Light Glare
         ctx.beginPath();
         ctx.ellipse(this.currentX - this.rx * 0.35, this.y - this.ry * 0.4, this.rx * 0.22, this.ry * 0.3, -Math.PI / 6, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
         ctx.fill();
 
-        // Knot
+        // Tie Knot
         ctx.beginPath();
         ctx.moveTo(this.currentX - 3, this.y + this.ry);
         ctx.lineTo(this.currentX + 3, this.y + this.ry);
@@ -338,7 +340,7 @@
         ctx.fillStyle = this.color.body;
         ctx.fill();
 
-        // Wavy String
+        // String
         ctx.beginPath();
         ctx.moveTo(this.currentX, this.y + this.ry + 5);
         ctx.quadraticCurveTo(
@@ -368,7 +370,7 @@
     }
     renderBalloons();
 
-    // 2. BOOK-FLIP INTERACTION & CONFETTI
+    // 2. BOOK-OPEN ACTION & CONFETTI
     function toggleBook(card) {
       const willOpen = !card.classList.contains('is-open');
       card.classList.toggle('is-open');
